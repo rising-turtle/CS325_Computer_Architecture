@@ -30,12 +30,13 @@ void right_shift(){
 	print_bin(x); 
 	print_bin(y);
 
-
+	unsigned int z = 0xA00000A8;
+	z = z >> 4; 
 	// logical shift
-	if((x >> 4) && y){
-		printf("logical shift x != arithmetric shift y\n"); 
+	if(z & y & 0xF0000000){
+		printf("logical shift (z = 0x%x) == (y = 0x%x) !\n", z, y); 
 	}else{
-		printf("x==y\n");
+		printf("logic shift (z = 0x%x) != (y = 0x%x) \n", z, y);
 	}
 
 }
@@ -45,12 +46,12 @@ void test_chapter2(){
 	// AA aa; 
 	// char c; short s; int x; double df; 
 	
-	if(0){
+	if(1){
 		// test big/little endian 
 		int x = 0x12345678; 
-		printf("%x\n", x); 
-		printf("%x\n", &x); 
-
+		printf("x = %x\n", x); 
+		printf("&x = %x\n", &x); 
+		/*
 		char* p = (char*)&x; 
 		printf("%x\n", p); 
 		printf("%x\n", *p); 
@@ -65,8 +66,9 @@ void test_chapter2(){
 			printf("little endian\n");
 		else
 			printf("big endian\n");
+		*/
 	}
-	if(0){
+	if(1){
 		// test arithmetic and logic shift 
 		right_shift();
 	}
@@ -80,7 +82,7 @@ void test_chapter2(){
 		printf("u = %u = %d\n", u, u);
 	}
 
-	if(1){
+	if(0){
 		// test signed and unsigned comparison
 		// -2147483647–1  ==  2147483648U
 		unsigned int x = 2147483648; // x = 2147483648U
