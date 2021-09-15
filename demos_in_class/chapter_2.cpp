@@ -25,18 +25,22 @@ void right_shift(){
 	// arithmetic shift
 	int x = 0xA00000A8; // 
 	int y = x >> 4; // y is arithmetic right shift of x 
-	printf("%d %d \n", x, y); 
+	// printf("%d %d \n", x, y); 
 	printf("%x %x \n", x, y); 
 	print_bin(x); 
 	print_bin(y);
 
-	unsigned int z = 0xA00000A8;
-	z = z >> 4; 
 	// logical shift
-	if(z & y & 0xF0000000){
-		printf("logical shift (z = 0x%x) == (y = 0x%x) !\n", z, y); 
+	unsigned int z = 0xA00000A8;
+	unsigned int sz = z >> 4; 
+	printf("%x %x \n", z, sz); 
+	print_bin(z); 
+	// printf("%x %u \n", z, z); 
+	print_bin(sz);
+	if(sz & 0xF0000000){
+		printf("logical shift (sz = 0x%x) == (y = 0x%x) arithmetic shift !\n", sz, y); 
 	}else{
-		printf("logic shift (z = 0x%x) != (y = 0x%x) \n", z, y);
+		printf("logic shift (sz = 0x%x) != (y = 0x%x) arithmetic shift \n", sz, y);
 	}
 
 }
@@ -46,12 +50,12 @@ void test_chapter2(){
 	// AA aa; 
 	// char c; short s; int x; double df; 
 	
-	if(1){
+	if(0){
 		// test big/little endian 
 		int x = 0x12345678; 
 		printf("x = %x\n", x); 
 		printf("&x = %x\n", &x); 
-		/*
+		
 		char* p = (char*)&x; 
 		printf("%x\n", p); 
 		printf("%x\n", *p); 
@@ -66,7 +70,6 @@ void test_chapter2(){
 			printf("little endian\n");
 		else
 			printf("big endian\n");
-		*/
 	}
 	if(1){
 		// test arithmetic and logic shift 
@@ -123,6 +126,17 @@ void test_chapter2(){
 		}else{
 			printf("%uU < %i is false, \n", m, k);
 		}
+		
+		// -2147483647–1u == -2147483648
+		int kk = k-1; // kk = -2147483647
+		unsigned int mm = (unsigned int)k + (unsigned int)(-1); 
+		if(mm == kk){
+			printf("%uU == %i is true, \n", mm, kk); 
+		}else{
+			printf("%uU == %i is false, \n", mm, kk);
+		}
+
+
 	}
 
 
@@ -135,23 +149,24 @@ void test_chapter2(){
 
 	if(0){
 		// test truncation 
-		int x = 0xF2345678; 
+		int x = 0xF2345687; 
 		short y = x; 
-		printf("y = 0x%X = %d\n", y, y);
+		// char y = x; 
+		printf("y = 0x%X = %d %u\n", y, y, y);
 	}
 
 	if(0){
 		// multiplication 
 		unsigned char x = 7; 
 		unsigned char y = 70; 
-		char z = x*y; 
+		unsigned char z = x*y; // char
 
 		printf("x = %d  y = %d z = %d\n", x,y,z); 
 	}
 
 	if(0){
 		// IEEE 754 
-		float x = 19.59375; // -12.09375; 
+		float x = -12.09375; // 19.59375; // -12.09375; 
 		int * px = (int*)&x;
 		printf("%X \n", *px);
 		print_bin(*px);
